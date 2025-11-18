@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西安交大出版社 - 智能知识服务平台</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Alibaba PuHuiTi 3.0", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #303133;
+            background-color: #F5F7FA;
+        }
+
+        .container {
+            max-width: 1512px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部导航 */
+        .header {
+            background: #FFFFFF;
+            box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+
+        /* 电子书下拉浮层 */
+        .ebook-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #FFFFFF url('images/navbookBG.png') no-repeat left top;
+            background-size: auto 100%;
+            display: none;
+            z-index: 999;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .ebook-dropdown.active {
+            display: block;
+        }
+
+        .dropdown-container {
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .dropdown-content {
+            width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .dropdown-title {
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .dropdown-title h2 {
+            font-size: 32px;
+            color: #003DA5;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-title p {
+            font-size: 16px;
+            color: #909399;
+            font-weight: 600;
+        }
+
+        .dropdown-options {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .dropdown-item {
+            width: calc((100% - 60px) / 4);
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.68);
+            z-index: 1;
+        }
+
+        .dropdown-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 使用navbook图片作为背景 */
+        .dropdown-item:nth-child(1) {
+            background: url('images/navbook/navbookbg00001.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .dropdown-item:nth-child(2) {
+            background: url('images/navbook/navbookbg00002.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .dropdown-item:nth-child(3) {
+            background: url('images/navbook/navbookbg00003.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .dropdown-item:nth-child(4) {
+            background: url('images/navbook/navbookbg00004.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .dropdown-item:nth-child(5) {
+            background: url('images/navbook/navbookbg00005.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .dropdown-item:nth-child(6) {
+            background: url('images/navbook/navbookbg00006.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .dropdown-item:nth-child(7) {
+            background: url('images/navbook/navbookbg00007.png') no-repeat center;
+            background-size: cover;
+        }
+
+        /* 智能体下拉浮层 */
+        .tools-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #FFFFFF url('images/navagentBG.png') no-repeat left top;
+            background-size: auto 100%;
+            display: none;
+            z-index: 999;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tools-dropdown.active {
+            display: block;
+        }
+
+        .tools-dropdown-container {
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .tools-dropdown-content {
+            width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .tools-dropdown-title {
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .tools-dropdown-title h2 {
+            font-size: 32px;
+            color: #003DA5;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .tools-dropdown-title p {
+            font-size: 16px;
+            color: #909399;
+            font-weight: 600;
+        }
+
+        .tools-dropdown-options {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .tools-dropdown-item {
+            width: calc((100% - 40px) / 3);
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tools-dropdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.68);
+            z-index: 1;
+        }
+
+        .tools-dropdown-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 智能体下拉浮层选项背景图片 */
+        .tools-dropdown-item:nth-child(1) {
+            background: url('images/navagent/navagentbg00001.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .tools-dropdown-item:nth-child(2) {
+            background: url('images/navagent/navagentbg00002.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .tools-dropdown-item:nth-child(3) {
+            background: url('images/navagent/navagentbg00003.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .tools-dropdown-item:nth-child(4) {
+            background: url('images/navagent/navagentbg00004.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .tools-dropdown-item:nth-child(5) {
+            background: url('images/navagent/navagentbg00005.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .tools-dropdown-item:nth-child(6) {
+            background: url('images/navagent/navagentbg00006.png') no-repeat center;
+            background-size: cover;
+        }
+
+        /* 知识库下拉浮层 */
+        .knowledge-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #FFFFFF url('images/navknowledgeBG.png') no-repeat left top;
+            background-size: auto 100%;
+            display: none;
+            z-index: 999;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .knowledge-dropdown.active {
+            display: block;
+        }
+
+        .knowledge-dropdown-container {
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .knowledge-dropdown-content {
+            width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            align-items: anchor-center;
+            gap: 20px;
+        }
+
+        .knowledge-dropdown-title {
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .knowledge-dropdown-title h2 {
+            font-size: 32px;
+            color: #003DA5;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .knowledge-dropdown-title p {
+            font-size: 16px;
+            color: #909399;
+            font-weight: 600;
+        }
+
+        .knowledge-dropdown-options {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .knowledge-primary-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .knowledge-primary-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "AlibabaPuHuiTiM", sans-serif;
+            font-size: 12px;
+            line-height: 12px;
+            color: #131921;
+        }
+
+        .knowledge-primary-item:hover {
+            background: rgba(0, 61, 165, 0.1);
+        }
+
+        .knowledge-primary-item.active {
+            background: rgba(0, 61, 165, 0.2);
+        }
+
+        .knowledge-secondary-menu {
+            margin-left: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 10px 10px;
+        }
+
+        .knowledge-secondary-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "AlibabaPuHuiTiM", sans-serif;
+            font-size: 14px;
+            line-height: 28px;
+            color: #003DA5;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .knowledge-secondary-item:hover {
+            background: rgba(0, 61, 165, 0.1);
+        }
+
+        .knowledge-secondary-item.active {
+            background: #003DA5;
+            color: #FFFFFF;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-image {
+            height: 58px;
+            width: 207px;
+            background: url('images/logo@4x (1).png') no-repeat center;
+            background-size: contain;
+        }
+
+        .logo-text {
+            font-family: "DingTalk JinBuTi", sans-serif;
+            font-size: 14px;
+            color: #003DA5;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .nav-link {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #003DA5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link.active {
+            background: rgba(0, 61, 165, 0.1);
+        }
+
+        .nav-link:hover {
+            background: rgba(0, 61, 165, 0.1);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #FFFFFF;
+            border: 0.5px solid rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 0 4px 0 20px;
+            width: 200px;
+            height: 40px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #909399;
+            background: transparent;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn.register {
+            color: #303133;
+        }
+
+        .auth-btn.login {
+            background: #003DA5;
+            color: #FFFFFF;
+            border-radius: 12px;
+        }
+
+        /* Banner 区域 */
+        .banner {
+            background: url('images/banner01bg.png') no-repeat center;
+            background-size: cover;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            padding: 205px 0 0 80px;
+            max-width: 720px;
+        }
+
+        .banner-text-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+
+        .banner-image {
+            position: absolute;
+            right: 80px;
+            top: 50px;
+            width: 480px;
+            height: 500px;
+            background: url('images/engine@2x.png') no-repeat center;
+            background-size: contain;
+        }
+
+        /* 电子书区域 */
+        .ebook-section {
+            padding: 80px 0;
+            /* background: #FFFFFF; */
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 48px;
+            color: #003DA5;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            font-size: 24px;
+            color: #606266;
+            font-weight: 600;
+        }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tab {
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: #FFFFFF;
+            color: #303133;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab.active {
+            background: #003DA5;
+            color: #FFFFFF;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+            max-width: 1140px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .book-card {
+            background: #FFFFFF;
+            /* border: 1px solid #003DA5; */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-category {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 20px 20px 0;
+            margin-bottom: 8px;
+        }
+
+        .category-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #1765FF;
+        }
+
+        .category-tag {
+            font-size: 12px;
+            color: #1765FF;
+            font-weight: 600;
+        }
+
+        .book-title {
+            padding: 0 20px;
+            font-size: 18px;
+            color: #131921;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            height: 50px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .book-image {
+            height: 190px;
+            background: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .book-difficulty-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 61, 165, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .book-card:hover .book-difficulty-overlay {
+            opacity: 1;
+        }
+
+        .difficulty-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+        }
+
+        .difficulty-buttons {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .difficulty-btn {
+            flex: 1;
+            max-width: 90px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .difficulty-btn.beginner {
+            background: linear-gradient(135deg, #FFB84D 0%, #F59E0B 100%);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .difficulty-btn.beginner:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .difficulty-btn.advanced {
+            background: linear-gradient(135deg, #5384FF 0%, #1765FF 100%);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .difficulty-btn.advanced:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(83, 132, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .view-all-btn {
+            display: block;
+            width: 143px;
+            height: 56px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border: 1px solid #003DA5;
+            border-radius: 100px;
+            color: #003DA5;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            background: #003DA5;
+            color: #FFFFFF;
+        }
+
+        /* 智能体工具区域 */
+        .tools-section {
+            /* background: #003DA5; */
+            color: #FFFFFF;
+            position: relative;
+        }
+
+        .tools-banner {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #003DA5 0%, #1765FF 100%);
+        }
+
+        .tools-banner-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tools-banner-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tools-banner-title h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .tools-banner-title p {
+            font-size: 24px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .agent-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .agent-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+            display: block;
+        }
+
+        .agent-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .agent-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .agent-description {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+        }
+
+        .tools-content {
+            padding: 80px 0;
+            /* background: #003DA5; */
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+            max-width: 1140px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tool-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 100px;
+            background: #ddd;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .tool-content {
+            flex: 1;
+        }
+
+        .tool-title {
+            font-size: 16px;
+            color: #303133;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tool-description {
+            font-size: 14px;
+            color: #606266;
+            line-height: 1.4;
+        }
+
+        /* AI知识库区域 */
+        .knowledge-section {
+            background: #FFFFFF;
+        }
+
+        .knowledge-banner {
+            height: 400px;
+            background: url('images/banner03.png') no-repeat center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .knowledge-banner h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+            color: #003DA5;
+        }
+
+        .knowledge-banner p {
+            font-size: 24px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            color: #003DA5;
+        }
+
+        .knowledge-banner .search-bar {
+            width: 720px;
+            height: 48px;
+            margin: 40px auto 0;
+            background: #FFFFFF;
+            border: 2px solid #1765FF;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .knowledge-content {
+            padding: 80px 0;
+        }
+
+        .search-bar {
+            width: 720px;
+            height: 48px;
+            margin: 0 auto 40px;
+            background: #FFFFFF;
+            border: 2px solid #1765FF;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .search-input-large {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #C0C4CC;
+            background: transparent;
+            padding: 0 16px;
+        }
+
+        .search-btn {
+            width: 134px;
+            height: 48px;
+            background: linear-gradient(270deg, #3C10FF 0%, #5384FF 100%);
+            border: none;
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin: 0;
+        }
+
+        .knowledge-content {
+            display: flex;
+            gap: 40px;
+            padding: 10px 40px 40px;
+        }
+
+        .knowledge-sidebar {
+            width: 260px;
+            background: rgba(0, 61, 165, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "AlibabaPuHuiTiM", sans-serif;
+            font-size: 15px;
+            line-height: 28px;
+            color: #131921;
+        }
+
+        .sidebar-item.active {
+            background: #003DA5;
+            color: #FFFFFF;
+        }
+
+        .sidebar-item.expanded {
+            background: transparent;
+            color: #003DA5;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(0, 61, 165, 0.2);
+        }
+
+        .sidebar-arrow {
+            width: 12px;
+            height: 12px;
+            transform: rotate(90deg);
+            color: #C0C4CC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-submenu {
+            margin-left: 10px;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .sidebar-subitem {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: "AlibabaPuHuiTiM", sans-serif;
+            font-size: 14px;
+            line-height: 28px;
+            color: #003DA5;
+            opacity: 0.7;
+        }
+
+        .sidebar-subitem.active {
+            background: #003DA5;
+            color: #FFFFFF;
+            opacity: 1;
+        }
+
+        .sidebar-subitem:hover {
+            background: rgba(0, 61, 165, 0.1);
+            opacity: 0.9;
+        }
+
+        .knowledge-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            /* gap: 20px; */
+        }
+
+        .knowledge-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* margin-bottom: 20px; */
+            padding: 20px 0;
+            /* background: #FFFFFF;
+            border-radius: 12px; */
+            /* box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.0965); */
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            position: relative;
+            background: url('images/knowledgetitile.png') no-repeat center;
+            background-size: contain;
+        }
+        
+        .header-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 14px;
+            background: linear-gradient(270deg, #3C10FF 0%, #5384FF 100%);
+            z-index: -1;
+        }
+
+        .header-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .header-category {
+            font-family: "Alibaba PuHuiTi 3.0", sans-serif;
+            font-size: 12px;
+            line-height: 16px;
+            color: #909399;
+            font-weight: 700;
+        }
+
+        .header-title {
+            font-family: "Alibaba PuHuiTi 3.0", sans-serif;
+            font-size: 20px;
+            line-height: 28px;
+            color: #131921;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .knowledge-card {
+            background: #F5F7FA;
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .knowledge-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background: #ddd;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .knowledge-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .knowledge-category {
+            font-family: "Alibaba PuHuiTi 3.0", sans-serif;
+            font-size: 12px;
+            line-height: 16px;
+            color: #909399;
+            font-weight: 700;
+        }
+
+        .knowledge-title {
+            font-family: "Alibaba PuHuiTi 3.0", sans-serif;
+            font-size: 16px;
+            line-height: 28px;
+            color: #131921;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .knowledge-description {
+            font-family: "Alibaba PuHuiTi 3.0", sans-serif;
+            font-size: 13px;
+            line-height: 18px;
+            color: #606266;
+            font-weight: 400;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #F5F7FA;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 0 72px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-image {
+            height: 58px;
+            width: 207px;
+            background: url('images/logo@4x (1).png') no-repeat center;
+            background-size: contain;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            color: #303133;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #606266;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #003DA5;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #E4E7ED;
+            color: #606266;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .knowledge-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: 15px 0;
+            }
+            
+            .nav-right {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .banner-content {
+                padding: 100px 20px 0;
+                text-align: center;
+            }
+            
+            .banner-title {
+                font-size: 36px;
+            }
+            
+            .banner-image {
+                display: none;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .knowledge-content {
+                flex-direction: column;
+            }
+            
+            .knowledge-sidebar {
+                width: 100%;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 36px;
+            }
+            
+            .section-title p {
+                font-size: 18px;
+            }
+        }
+
+        /* 宽屏优化 */
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1600px;
+            }
+            
+            .banner {
+                height: 700px;
+            }
+            
+            .banner-content {
+                padding-top: 250px;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1800px;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-image"></div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active">首页</a></li>
+                    <li><a href="#ebooks" class="nav-link ebook-link">电子书</a></li>
+                    <li><a href="#tools" class="nav-link">智能体</a></li>
+                    <li><a href="#knowledge" class="nav-link">AI知识库</a></li>
+                    <li><a href="#" class="nav-link">帮助中心</a></li>
+                    <li class="digital-textbook">
+                        <img src="images/navtag.png" alt="数字教材" width="88" height="28">
+                    </li>
+                </ul>
+            </nav>
+            <div class="nav-right">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="搜索课程...">
+                </div>
+                <div class="auth-buttons">
+                    <a href="#" class="auth-btn register">注册</a>
+                    <a href="#" class="auth-btn login">登录</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 电子书下拉浮层 -->
+        <div class="ebook-dropdown">
+            <div class="dropdown-container">
+                <div class="dropdown-content">
+                    <div class="dropdown-title">
+                        <h2>融合出版电子书</h2>
+                        <p>交互式智能学习工具</p>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="dropdown-item">
+                            <span>高等教育</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>职业教育</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>基础教育</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>国家规划级教材</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>西迁图书</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>国家出版基金</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>版权出版</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 智能体下拉浮层 -->
+        <div class="tools-dropdown">
+            <div class="tools-dropdown-container">
+                <div class="tools-dropdown-content">
+                    <div class="tools-dropdown-title">
+                        <h2>动力学科<br>智能体工具</h2>
+                        <p>交互式智能学习工具</p>
+                    </div>
+                    <div class="tools-dropdown-options">
+                        <div class="tools-dropdown-item">
+                            <span>执行操作</span>
+                        </div>
+                        <div class="tools-dropdown-item">
+                            <span>决策规划</span>
+                        </div>
+                        <div class="tools-dropdown-item">
+                            <span>协作调度</span>
+                        </div>
+                        <div class="tools-dropdown-item">
+                            <span>加工制造</span>
+                        </div>
+                        <div class="tools-dropdown-item">
+                            <span>运维检测</span>
+                        </div>
+                        <div class="tools-dropdown-item">
+                            <span>能源管控</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 知识库下拉浮层 -->
+        <div class="knowledge-dropdown">
+            <div class="knowledge-dropdown-container">
+                <div class="knowledge-dropdown-content">
+                    <div class="knowledge-dropdown-title">
+                        <h2>动力AI知识库</h2>
+                        <p>交互式智能学习工具</p>
+                    </div>
+                    <div class="knowledge-dropdown-options">
+                        <div class="knowledge-primary-menu">
+                            <!-- 机电基础理论 -->
+                            <div class="knowledge-primary-item">
+                                · 机电基础理论
+                            </div>
+                            <div class="knowledge-secondary-menu">
+                                <div class="knowledge-secondary-item">工程力学基础</div>
+                                <div class="knowledge-secondary-item">机械原理与机构学</div>
+                                <div class="knowledge-secondary-item">电磁学核心原理</div>
+                                <div class="knowledge-secondary-item">电路理论与分析方法</div>
+                                <div class="knowledge-secondary-item">热力学与流体力学基础</div>
+                                <div class="knowledge-secondary-item">工程材料与材料力学性能</div>
+                                <div class="knowledge-secondary-item">数学建模与工程计算</div>
+                                <div class="knowledge-secondary-item">信号与系统基础</div>
+                                <div class="knowledge-secondary-item">误差理论与数据处理</div>
+                            </div>
+                            
+                            <!-- 机械工程核心知识 -->
+                            <div class="knowledge-primary-item">
+                                · 机械工程核心知识
+                            </div>
+                            <div class="knowledge-secondary-menu">
+                                <div class="knowledge-secondary-item">机械零件与常用机构</div>
+                                <div class="knowledge-secondary-item">机械原理与运动学分析</div>
+                                <div class="knowledge-secondary-item">机械设计方法与规范</div>
+                                <div class="knowledge-secondary-item">机械制造工艺与装备</div>
+                                <div class="knowledge-secondary-item">机械材料与热处理技术</div>
+                                <div class="knowledge-secondary-item">机械精度设计与检测</div>
+                                <div class="knowledge-secondary-item">机械振动与动力学分析</div>
+                                <div class="knowledge-secondary-item">液压与气动传动技术</div>
+                                <div class="knowledge-secondary-item">机械系统仿真与优化</div>
+                            </div>
+                            
+                            <!-- 电气工程核心知识 -->
+                            <div class="knowledge-primary-item">
+                                · 电气工程核心知识
+                            </div>
+                            <div class="knowledge-secondary-menu">
+                                <div class="knowledge-secondary-item">电工理论与电气基础</div>
+                                <div class="knowledge-secondary-item">电机与电器系统</div>
+                                <div class="knowledge-secondary-item">电力系统及其自动化</div>
+                                <div class="knowledge-secondary-item">高电压与绝缘技术</div>
+                                <div class="knowledge-secondary-item">电力电子与电能变换</div>
+                                <div class="knowledge-secondary-item">电气测量与测试技术</div>
+                                <div class="knowledge-secondary-item">新能源发电与电能存储</div>
+                                <div class="knowledge-secondary-item">电气控制与自动化</div>
+                                <div class="knowledge-secondary-item">智能电网与电力信息技术</div>
+                            </div>
+                            
+                            <!-- 智能控制与自动化 -->
+                            <div class="knowledge-primary-item">
+                                · 智能控制与自动化
+                            </div>
+                            <div class="knowledge-secondary-menu">
+                                <div class="knowledge-secondary-item">自动控制理论基础</div>
+                                <div class="knowledge-secondary-item">智能控制核心算法</div>
+                                <div class="knowledge-secondary-item">控制系统建模与仿真</div>
+                                <div class="knowledge-secondary-item">传感器与检测技术</div>
+                                <div class="knowledge-secondary-item">执行机构与驱动技术</div>
+                                <div class="knowledge-secondary-item">工业自动化系统设计</div>
+                                <div class="knowledge-secondary-item">运动控制与伺服系统</div>
+                                <div class="knowledge-secondary-item">过程控制与流程优化</div>
+                                <div class="knowledge-secondary-item">机器人控制技术</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner 区域 -->
+    <section class="banner">
+        <div class="banner-content">
+            <img src="images/banner01text.png" alt="机电动领域知识生态 赋能创新教育与产业实践" class="banner-text-image">
+        </div>
+        <div class="banner-image"></div>
+    </section>
+
+    <!-- 电子书区域 -->
+    <section id="ebooks" class="ebook-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>融合出版电子书</h2>
+                <p>交互式智能学习工具</p>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab active">全部</div>
+                <div class="tab">高等教育</div>
+                <div class="tab">职业教育</div>
+                <div class="tab">基础教育</div>
+                <div class="tab">国家规划级教材</div>
+                <div class="tab">西迁图书</div>
+                <div class="tab">国家出版基金</div>
+                <div class="tab">版权出版</div>
+            </div>
+            
+            <div class="books-grid">
+                <!-- 第1行 -->
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">职业教育</span>
+                    </div>
+                    <div class="book-title">机电系统智能控制与优化设计</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00001.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-1" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-1" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">西迁图书</span>
+                    </div>
+                    <div class="book-title">机械制造工艺与智能产线集成</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00002.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-2" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-2" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">职业教育</span>
+                    </div>
+                    <div class="book-title">电力电子变换器拓扑与调制技术</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00003.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-3" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-3" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">职业教育</span>
+                    </div>
+                    <div class="book-title">工业机器人运动学与轨迹规划</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00004.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-4" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-4" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">高等教育</span>
+                    </div>
+                    <div class="book-title">机电装备故障诊断与健康管理</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00005.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-5" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-5" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第2行 -->
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">基础教育</span>
+                    </div>
+                    <div class="book-title">数字化孪生在机电工程中的应用</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00006.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-6" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-6" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">西迁图书</span>
+                    </div>
+                    <div class="book-title">电机控制技术与 MATLAB 仿真实践</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00007.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-7" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-7" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">西迁图书</span>
+                    </div>
+                    <div class="book-title">嵌入式系统与机电设备接口开发</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00008.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-8" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-8" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">国家规划级教材</span>
+                    </div>
+                    <div class="book-title">智能制造系统集成与优化</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00009.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-9" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-9" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">职业教育</span>
+                    </div>
+                    <div class="book-title">工业自动化控制系统设计</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00010.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-10" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-10" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第3行 -->
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">高等教育</span>
+                    </div>
+                    <div class="book-title">机械设计基础与创新实践</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00011.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-11" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-11" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">西迁图书</span>
+                    </div>
+                    <div class="book-title">电气控制技术与 PLC 应用</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00012.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-12" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-12" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">国家出版基金</span>
+                    </div>
+                    <div class="book-title">先进制造技术与装备</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00013.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-13" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-13" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">职业教育</span>
+                    </div>
+                    <div class="book-title">液压与气动传动技术</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00014.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-14" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-14" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">基础教育</span>
+                    </div>
+                    <div class="book-title">工程制图与 CAD 技术</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00015.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-15" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-15" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第4行 -->
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">西迁图书</span>
+                    </div>
+                    <div class="book-title">传感器与检测技术</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00016.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-16" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-16" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">高等教育</span>
+                    </div>
+                    <div class="book-title">机械工程材料与热处理</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00017.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-17" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-17" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">国家规划级教材</span>
+                    </div>
+                    <div class="book-title">机电一体化系统设计</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00018.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-18" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-18" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">职业教育</span>
+                    </div>
+                    <div class="book-title">工业机器人编程与应用</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00019.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-19" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-19" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-category">
+                        <div class="category-icon"></div>
+                        <span class="category-tag">版权出版</span>
+                    </div>
+                    <div class="book-title">智能制造与工业 4.0</div>
+                    <div class="book-image" style="background-image: url('images/bookcover/bookcover00020.png')"></div>
+                    <div class="book-difficulty-overlay">
+                        <div class="difficulty-title">选择学习模式</div>
+                        <div class="difficulty-buttons">
+                            <a href="#beginner-mode-20" class="difficulty-btn beginner">入门</a>
+                            <a href="#advanced-mode-20" class="difficulty-btn advanced">进阶</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="view-all-btn">查看全部</a>
+        </div>
+    </section>
+
+    <!-- 智能体工具区域 -->
+    <section id="tools" class="tools-section">
+        <div class="tools-banner">
+            <div class="tools-banner-container">
+                <div class="tools-banner-title">
+                    <h2>动力学科智能体工具</h2>
+                    <p>产学研协同解决方案</p>
+                </div>
+                <div class="agent-cards-grid">
+                    <a href="https://wenke.cocorobo.cn" class="agent-card" target="_blank">
+                        <div class="agent-avatar" style="background-image: url('images/agentcover/agentcover00001.png')"></div>
+                        <div class="agent-name">问课 Agent</div>
+                        <div class="agent-description">智能问答助手，解答学习疑问</div>
+                    </a>
+                    <a href="https://wenke.cocorobo.cn" class="agent-card" target="_blank">
+                        <div class="agent-avatar" style="background-image: url('images/agentcover/agentcover00005.png')"></div>
+                        <div class="agent-name">实验 Agent</div>
+                        <div class="agent-description">虚拟实验指导，数据分析辅助</div>
+                    </a>
+                    <a href="https://wenke.cocorobo.cn" class="agent-card" target="_blank">
+                        <div class="agent-avatar" style="background-image: url('images/agentcover/agentcover00009.png')"></div>
+                        <div class="agent-name">设计 Agent</div>
+                        <div class="agent-description">工程设计辅助，方案优化建议</div>
+                    </a>
+                    <a href="https://wenke.cocorobo.cn" class="agent-card" target="_blank">
+                        <div class="agent-avatar" style="background-image: url('images/agentcover/agentcover00013.png')"></div>
+                        <div class="agent-name">诊断 Agent</div>
+                        <div class="agent-description">故障诊断分析，维护方案推荐</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="tools-content">
+            <div class="container">
+                <div class="tab-container">
+                    <div class="tab active">全部</div>
+                    <div class="tab">执行操作</div>
+                    <div class="tab">决策规划</div>
+                    <div class="tab">协作调度</div>
+                    <div class="tab">加工制造</div>
+                    <div class="tab">运维检测</div>
+                    <div class="tab">能源管控</div>
+                </div>
+                
+                <div class="tools-grid">
+                    <!-- 第1行 -->
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00001.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">机电基础理论虚拟仿真教学</div>
+                            <div class="tool-description">实时采集工件材质、刀具磨损数据，动态调整切削速度与进给量，提升加工精度和效率。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00002.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">工程力学实验数据智能分析</div>
+                            <div class="tool-description">通过视觉引导与力控感知，适配不同规格零部件，完成高精度插拔、紧固等装配动作。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00003.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">机械原理机构运动虚拟演示</div>
+                            <div class="tool-description">监测振动、温度等运行数据，运用算法预判轴承磨损、绕组故障，提前触发维护提醒。</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第2行 -->
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00004.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">电路原理交互式教学引导</div>
+                            <div class="tool-description">融合激光雷达与视觉定位，规划最优路径，自主完成车间物料转运与工位对接。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00005.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">电机学虚拟实验平台搭建</div>
+                            <div class="tool-description">精准执行电芯堆叠、线束安装，把控装配力与位置精度，保障电池包一致性。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00006.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">机电控制原理仿真教学</div>
+                            <div class="tool-description">实时监测各生产线用电需求，动态分配电力资源，避免过载并降低能耗。</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第3行 -->
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00007.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">智能制造系统集成优化</div>
+                            <div class="tool-description">基于数字孪生技术，实现生产线的实时监控与智能调度，提升整体生产效率。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00008.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">工业机器人智能编程</div>
+                            <div class="tool-description">通过视觉识别与深度学习，自动生成机器人运动轨迹，简化复杂任务编程流程。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00009.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">设备故障预测与维护</div>
+                            <div class="tool-description">利用大数据分析技术，预测设备故障周期，制定精准维护计划，降低停机时间。</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第4行 -->
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00010.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">能源管理系统优化</div>
+                            <div class="tool-description">实时监控能耗数据，智能调节设备运行参数，实现能源使用效率最大化。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00011.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">质量检测智能分析</div>
+                            <div class="tool-description">结合机器视觉与AI算法，自动识别产品缺陷，提升质量检测准确性与效率。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00012.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">供应链智能调度</div>
+                            <div class="tool-description">基于需求预测与库存分析，优化供应链资源配置，降低运营成本。</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第5行 -->
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00013.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">生产计划智能排程</div>
+                            <div class="tool-description">综合考虑设备能力、订单优先级等因素，自动生成最优生产计划方案。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00014.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">工艺参数优化</div>
+                            <div class="tool-description">通过机器学习算法，自动优化加工工艺参数，提升产品质量与生产效率。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00015.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">智能仓储管理</div>
+                            <div class="tool-description">实现仓库自动化管理，优化存储空间利用，提高出入库效率。</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第6行 -->
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00016.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">远程运维监控</div>
+                            <div class="tool-description">通过物联网技术，实现设备远程监控与故障诊断，降低现场维护成本。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00017.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">数据分析与决策支持</div>
+                            <div class="tool-description">整合生产数据，提供可视化分析报告，为管理决策提供数据支撑。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <div class="tool-icon" style="background-image: url('images/agentcover/agentcover00018.png')"></div>
+                        <div class="tool-content">
+                            <div class="tool-title">智能安全监控</div>
+                            <div class="tool-description">实时监测生产环境安全状况，自动预警潜在风险，保障生产安全。</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="view-all-btn">查看全部</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI知识库区域 -->
+    <section id="knowledge" class="knowledge-section">
+        <div class="knowledge-banner">
+            <h2>动力AI知识库</h2>
+            <p>机电动领域智能检索平台</p>
+            <div class="search-bar">
+                <input type="text" class="search-input-large" placeholder="请输入您的问题...">
+                <button class="search-btn">问一问</button>
+            </div>
+        </div>
+
+                <div class="knowledge-content">
+                    <div class="knowledge-sidebar">
+                        <div class="sidebar-item active expanded">· 机电基础理论
+                            <svg class="sidebar-arrow" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M0.445406 0.168056C0.872111 -0.116414 1.43793 -0.0296652 1.76187 0.352103L1.83216 0.445406L3.83216 3.44541C4.03121 3.74398 4.05332 4.12292 3.89851 4.43935L3.83216 4.55481L1.83216 7.55481C1.5258 8.01434 0.904935 8.13851 0.445406 7.83216C0.0187009 7.54769 -0.118846 6.99203 0.108964 6.54617L0.168056 6.44541L1.79711 4.00011L0.168056 1.55481C-0.116414 1.1281 -0.0296652 0.562281 0.352103 0.238344L0.445406 0.168056Z"/>
+                            </svg>
+                        </div>
+                        <div class="sidebar-submenu">
+                            <div class="sidebar-subitem active">工程力学基础</div>
+                            <div class="sidebar-subitem">机械原理与机构学</div>
+                            <div class="sidebar-subitem">电磁学核心原理</div>
+                            <div class="sidebar-subitem">电路理论与分析方法</div>
+                            <div class="sidebar-subitem">热力学与流体力学基础</div>
+                            <div class="sidebar-subitem">工程材料与材料力学性能</div>
+                            <div class="sidebar-subitem">数学建模与工程计算</div>
+                            <div class="sidebar-subitem">信号与系统基础</div>
+                            <div class="sidebar-subitem">误差理论与数据处理</div>
+                        </div>
+                        <div class="sidebar-item">· 机械工程核心知识
+                            <svg class="sidebar-arrow" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M0.445406 0.168056C0.872111 -0.116414 1.43793 -0.0296652 1.76187 0.352103L1.83216 0.445406L3.83216 3.44541C4.03121 3.74398 4.05332 4.12292 3.89851 4.43935L3.83216 4.55481L1.83216 7.55481C1.5258 8.01434 0.904935 8.13851 0.445406 7.83216C0.0187009 7.54769 -0.118846 6.99203 0.108964 6.54617L0.168056 6.44541L1.79711 4.00011L0.168056 1.55481C-0.116414 1.1281 -0.0296652 0.562281 0.352103 0.238344L0.445406 0.168056Z"/>
+                            </svg>
+                        </div>
+                        <div class="sidebar-item">· 电气工程核心知识
+                            <svg class="sidebar-arrow" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M0.445406 0.168056C0.872111 -0.116414 1.43793 -0.0296652 1.76187 0.352103L1.83216 0.445406L3.83216 3.44541C4.03121 3.74398 4.05332 4.12292 3.89851 4.43935L3.83216 4.55481L1.83216 7.55481C1.5258 8.01434 0.904935 8.13851 0.445406 7.83216C0.0187009 7.54769 -0.118846 6.99203 0.108964 6.54617L0.168056 6.44541L1.79711 4.00011L0.168056 1.55481C-0.116414 1.1281 -0.0296652 0.562281 0.352103 0.238344L0.445406 0.168056Z"/>
+                            </svg>
+                        </div>
+                        <div class="sidebar-item">· 智能控制与自动化
+                            <svg class="sidebar-arrow" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M0.445406 0.168056C0.872111 -0.116414 1.43793 -0.0296652 1.76187 0.352103L1.83216 0.445406L3.83216 3.44541C4.03121 3.74398 4.05332 4.12292 3.89851 4.43935L3.83216 4.55481L1.83216 7.55481C1.5258 8.01434 0.904935 8.13851 0.445406 7.83216C0.0187009 7.54769 -0.118846 6.99203 0.108964 6.54617L0.168056 6.44541L1.79711 4.00011L0.168056 1.55481C-0.116414 1.1281 -0.0296652 0.562281 0.352103 0.238344L0.445406 0.168056Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="knowledge-main">
+                        <!-- 标题区 -->
+                        <div class="knowledge-header">
+                            <div class="header-icon"></div>
+                            <div class="header-text">
+                                <div class="header-category">机电基础理论</div>
+                                <div class="header-title">工程力学基础</div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-grid">
+                            <!-- 第1行 -->
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">静力学平衡方程及其工程应用</div>
+                                    <div class="knowledge-description">详解物体在平面力系、空间力系下的平衡条件，结合梁、刚架等结构实例，说明方程在工程受力分析中的实操方法。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00001.png')"></div>
+                            </div>
+                            
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">摩擦力特性与工程摩擦问题解决方案</div>
+                                    <div class="knowledge-description">阐述静摩擦、动摩擦的影响因素与计算模型，针对机械传动、制动系统等场景，提供摩擦优化与磨损控制思路。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00002.png')"></div>
+                            </div>
+                            
+                            <!-- 第2行 -->
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">刚体平面运动的速度与加速度分析</div>
+                                    <div class="knowledge-description">基于基点法、速度投影定理，解析刚体平动与转动的合成运动规律，为机构运动设计提供力学分析依据。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00003.png')"></div>
+                            </div>
+                            
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">材料力学中的应力应变关系与胡克定律</div>
+                                    <div class="knowledge-description">讲解正应力、切应力与线应变、切应变的对应关系，结合弹性材料特性，说明胡克定律在强度计算中的应用。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00004.png')"></div>
+                            </div>
+                            
+                            <!-- 第3行 -->
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">梁的弯曲正应力计算与强度校核</div>
+                                    <div class="knowledge-description">推导梁弯曲时横截面上正应力的分布规律，介绍简支梁、悬臂梁等常见梁型的强度验算步骤与工程实例。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00005.png')"></div>
+                            </div>
+                            
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">轴向拉压杆的强度与刚度设计</div>
+                                    <div class="knowledge-description">分析轴向受力构件的应力分布、变形计算方法，围绕工程中拉杆、压杆的设计需求，给出强度与刚度优化方案。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00006.png')"></div>
+                            </div>
+                            
+                            <!-- 第4行 -->
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">动量定理与动量矩定理在动力学中的应用</div>
+                                    <div class="knowledge-description">阐述动量、动量矩的物理意义与守恒条件，通过碰撞、旋转机械等案例，说明定理在动力学问题求解中的作用。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00007.png')"></div>
+                            </div>
+                            
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">剪切变形与挤压强度计算实务</div>
+                                    <div class="knowledge-description">聚焦连接件（螺栓、销钉等）的剪切与挤压破坏形式，讲解强度条件的建立方法，助力机械结构连接设计。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00008.png')"></div>
+                            </div>
+                            
+                            <!-- 第5行 -->
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">压杆稳定临界载荷的欧拉公式应用</div>
+                                    <div class="knowledge-description">推导欧拉公式的适用条件，分析压杆长度系数、截面惯性矩对临界载荷的影响，解决工程中压杆失稳问题。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00009.png')"></div>
+                            </div>
+                            
+                            <div class="knowledge-card">
+                                <div class="knowledge-text">
+                                    <div class="knowledge-title">工程力学中的单位换算与误差控制</div>
+                                    <div class="knowledge-description">梳理力学核心物理量（力、应力、应变等）的单位体系，介绍工程计算中的误差来源与减小误差的实用技巧。</div>
+                                </div>
+                                <div class="knowledge-icon" style="background-image: url('images/knowledgecover/knowledgecover00010.png')"></div>
+                            </div>
+                        </div>
+                    </div>
+
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="footer-logo-image"></div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <a href="#">出版社简介</a>
+                <a href="#">办社宗旨</a>
+                <a href="#">组织架构</a>
+                <a href="#">荣誉奖项</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>近期动态</h3>
+                <a href="#">新闻动态</a>
+                <a href="#">党建之窗</a>
+                <a href="#">会议活动</a>
+                <a href="#">职工之家</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <a href="#">电 话：400-123-4567</a>
+                <a href="#">邮 箱：contact@xa.com</a>
+                <a href="#">营业时间：周一至周日 9:00-22:00</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>版权归西安交大出版社  陕公网安备61010302000965号；陕ICP备14012669号-1；（署）网出证（陕）字第011号</p>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 标签切换
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // 侧边栏切换
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const sidebarSubitems = document.querySelectorAll('.sidebar-subitem');
+            
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 如果点击的是已展开的项，不处理
+                    if (this.classList.contains('expanded')) {
+                        return;
+                    }
+                    
+                    // 移除所有active状态
+                    sidebarItems.forEach(i => {
+                        i.classList.remove('active');
+                        i.classList.remove('expanded');
+                    });
+                    
+                    // 设置当前项为active
+                    this.classList.add('active');
+                });
+            });
+            
+            // 二级菜单点击处理
+            sidebarSubitems.forEach(subitem => {
+                subitem.addEventListener('click', function() {
+                    // 移除所有二级菜单的active状态
+                    sidebarSubitems.forEach(si => si.classList.remove('active'));
+                    
+                    // 设置当前二级菜单为active
+                    this.classList.add('active');
+                    
+                    // 找到对应的父级一级菜单
+                    const parentItem = this.closest('.sidebar-submenu').previousElementSibling;
+                    
+                    // 设置一级菜单为expanded状态（蓝色背景去掉，字体颜色变为#003DA5）
+                    sidebarItems.forEach(i => {
+                        i.classList.remove('active');
+                        i.classList.remove('expanded');
+                    });
+                    parentItem.classList.add('expanded');
+                });
+            });
+            
+        // 电子书下拉浮层交互
+        const ebookLink = document.querySelector('.nav-link.ebook-link');
+        const ebookDropdown = document.querySelector('.ebook-dropdown');
+        let isEbookDropdownOpen = false;
+
+        ebookLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            isEbookDropdownOpen = !isEbookDropdownOpen;
+            
+            if (isEbookDropdownOpen) {
+                ebookDropdown.classList.add('active');
+                // 关闭智能体下拉浮层
+                closeToolsDropdown();
+                // 添加点击外部关闭功能
+                document.addEventListener('click', closeEbookDropdownOnClickOutside);
+            } else {
+                closeEbookDropdown();
+            }
+        });
+
+        // 电子书下拉浮层选项点击处理
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const category = this.querySelector('span').textContent;
+                // 这里可以添加跳转到对应分类的逻辑
+                console.log('选择了电子书分类:', category);
+                closeEbookDropdown();
+            });
+        });
+
+        function closeEbookDropdown() {
+            ebookDropdown.classList.remove('active');
+            isEbookDropdownOpen = false;
+            document.removeEventListener('click', closeEbookDropdownOnClickOutside);
+        }
+
+        function closeEbookDropdownOnClickOutside(e) {
+            if (!ebookDropdown.contains(e.target) && !ebookLink.contains(e.target)) {
+                closeEbookDropdown();
+            }
+        }
+
+        // 智能体下拉浮层交互
+        const toolsLink = document.querySelector('.nav-link[href="#tools"]');
+        const toolsDropdown = document.querySelector('.tools-dropdown');
+        let isToolsDropdownOpen = false;
+
+        toolsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            isToolsDropdownOpen = !isToolsDropdownOpen;
+            
+            if (isToolsDropdownOpen) {
+                toolsDropdown.classList.add('active');
+                // 关闭电子书下拉浮层
+                closeEbookDropdown();
+                // 添加点击外部关闭功能
+                document.addEventListener('click', closeToolsDropdownOnClickOutside);
+            } else {
+                closeToolsDropdown();
+            }
+        });
+
+        // 智能体下拉浮层选项点击处理
+        const toolsDropdownItems = document.querySelectorAll('.tools-dropdown-item');
+        toolsDropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const category = this.querySelector('span').textContent;
+                // 这里可以添加跳转到对应分类的逻辑
+                console.log('选择了智能体分类:', category);
+                closeToolsDropdown();
+            });
+        });
+
+        function closeToolsDropdown() {
+            toolsDropdown.classList.remove('active');
+            isToolsDropdownOpen = false;
+            document.removeEventListener('click', closeToolsDropdownOnClickOutside);
+        }
+
+        function closeToolsDropdownOnClickOutside(e) {
+            if (!toolsDropdown.contains(e.target) && !toolsLink.contains(e.target)) {
+                closeToolsDropdown();
+            }
+        }
+
+        // 知识库下拉浮层交互
+        const knowledgeLink = document.querySelector('.nav-link[href="#knowledge"]');
+        const knowledgeDropdown = document.querySelector('.knowledge-dropdown');
+        let isKnowledgeDropdownOpen = false;
+
+        knowledgeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            isKnowledgeDropdownOpen = !isKnowledgeDropdownOpen;
+            
+            if (isKnowledgeDropdownOpen) {
+                knowledgeDropdown.classList.add('active');
+                // 关闭其他下拉浮层
+                closeEbookDropdown();
+                closeToolsDropdown();
+                // 添加点击外部关闭功能
+                document.addEventListener('click', closeKnowledgeDropdownOnClickOutside);
+            } else {
+                closeKnowledgeDropdown();
+            }
+        });
+
+        // 知识库一级菜单点击处理
+        const knowledgePrimaryItems = document.querySelectorAll('.knowledge-primary-item');
+        knowledgePrimaryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有一级菜单的active状态
+                knowledgePrimaryItems.forEach(i => i.classList.remove('active'));
+                
+                // 设置当前一级菜单为active
+                this.classList.add('active');
+                
+                // 这里可以添加跳转到对应分类的逻辑
+                const category = this.textContent.trim();
+                console.log('选择了知识库分类:', category);
+            });
+        });
+
+        // 知识库二级菜单点击处理
+        const knowledgeSecondaryItems = document.querySelectorAll('.knowledge-secondary-item');
+        knowledgeSecondaryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有二级菜单的active状态
+                knowledgeSecondaryItems.forEach(i => i.classList.remove('active'));
+                
+                // 设置当前二级菜单为active
+                this.classList.add('active');
+                
+                // 这里可以添加跳转到对应子分类的逻辑
+                const subcategory = this.textContent.trim();
+                console.log('选择了知识库子分类:', subcategory);
+                
+                // 关闭下拉浮层
+                closeKnowledgeDropdown();
+            });
+        });
+
+        function closeKnowledgeDropdown() {
+            knowledgeDropdown.classList.remove('active');
+            isKnowledgeDropdownOpen = false;
+            document.removeEventListener('click', closeKnowledgeDropdownOnClickOutside);
+        }
+
+        function closeKnowledgeDropdownOnClickOutside(e) {
+            if (!knowledgeDropdown.contains(e.target) && !knowledgeLink.contains(e.target)) {
+                closeKnowledgeDropdown();
+            }
+        }
+
+        // 移除导航链接的默认锚点行为，只保留下拉浮层功能
+        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 只处理下拉浮层，不进行页面滚动
+            });
+        });
+        });
+    </script>
+</body>
+</html>
