@@ -19,43 +19,41 @@ export function AudioPlayer({ chapterTitle, duration, audioSrc, onTimeUpdate }: 
 
   // 初始化音频元素
   useEffect(() => {
-    if (audioSrc && !audioRef.current) {
-      audioRef.current = new Audio(audioSrc);
-      audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
-      audioRef.current.addEventListener('ended', handleEnded);
-      audioRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
-    }
+    if (!audioSrc) return;
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
-        audioRef.current.removeEventListener('ended', handleEnded);
-        audioRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      }
-    };
-  }, [audioSrc]);
+    const audio = new Audio(audioSrc);
+    audioRef.current = audio;
 
-  // 处理音频时间更新
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const time = audioRef.current.currentTime;
+    // 处理音频时间更新
+    const handleTimeUpdate = () => {
+      const time = audio.currentTime;
       setCurrentTime(time);
       onTimeUpdate(time);
-    }
-  };
+    };
 
-  // 处理音频播放结束
-  const handleEnded = () => {
-    setIsPlaying(false);
-    setCurrentTime(0);
-    onTimeUpdate(0);
-  };
+    // 处理音频播放结束
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setCurrentTime(0);
+      onTimeUpdate(0);
+    };
 
-  // 处理音频元数据加载
-  const handleLoadedMetadata = () => {
-    // 可以在这里获取真实的音频时长
-  };
+    // 处理音频元数据加载
+    const handleLoadedMetadata = () => {
+      // 可以在这里获取真实的音频时长
+    };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    return () => {
+      audio.pause();
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [audioSrc, onTimeUpdate]);
 
   // 更新播放速率
   useEffect(() => {
