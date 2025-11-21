@@ -5,7 +5,7 @@
 ## ✨ 核心功能
 
 ### 📖 流式阅读
-- **优雅的排版设计**：采用 Lora 衬线字体，20px 字号，1.8 行高，提供舒适的阅读体验
+- **优雅的排版设计**：精心调校的字体和间距，20px 字号，1.8 行高，提供舒适的阅读体验
 - **温暖的视觉风格**：米黄色背景，减少视觉疲劳
 - **丰富的内容支持**：支持 Markdown、数学公式（KaTeX）、表格、图片等
 - **响应式布局**：适配不同屏幕尺寸
@@ -22,14 +22,12 @@
 - **交互式导航**：点击目录快速跳转到不同章节
 
 ### 🎨 视觉设计
-- **品牌色系**：基于 Anthropic 设计规范
-  - 主色调：深灰 (#141413)
-  - 强调色：橙色 (#d97757)
-  - 辅助色：蓝色 (#6a9bcc)、绿色 (#788c5d)
-- **字体系统**：
-  - 标题：Poppins（无衬线）
-  - 正文：Lora（衬线）
-  - 代码：Fira Code（等宽）
+- **专业配色方案**：以深蓝色为主色调的现代化设计
+  - 主色调：品牌蓝 (#0F60FF)
+  - 背景色：米黄 (#faf8f3)
+  - 文本色：深灰 (#141413)
+  - 辅助色：橙色 (#d97757)、蓝色 (#6a9bcc)
+- **精心设计的字体系统**：标题使用无衬线字体，正文使用衬线字体，提供最佳阅读体验
 
 ## 🚀 快速开始
 
@@ -113,7 +111,7 @@ interactive-digital-textbook/
 - **Markdown**：react-markdown + remark/rehype 插件
 - **数学公式**：KaTeX
 - **图表**：Mermaid
-- **字体**：Google Fonts (Poppins, Lora)
+- **字体**：Google Fonts
 
 ## 📝 内容管理
 
@@ -137,14 +135,14 @@ interactive-digital-textbook/
 --color-light: #faf9f5;       /* 背景色 */
 --color-beige: #faf8f3;       /* 阅读区背景 */
 --color-orange: #d97757;      /* 强调色 */
---color-blue: #6a9bcc;        /* 链接色 */
+--color-blue: #0F60FF;        /* 品牌蓝 */
 --color-green: #788c5d;       /* 标签色 */
 ```
 
 ### 字体规范
-- 标题：Poppins, 700 weight
-- 正文：Lora, 400 weight, 20px, 1.8 line-height
-- 代码：Fira Code, monospace
+- 标题：无衬线字体，700 weight
+- 正文：衬线字体，400 weight, 20px, 1.8 line-height
+- 代码：等宽字体
 
 ## 📄 许可证
 
