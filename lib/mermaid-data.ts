@@ -29,189 +29,161 @@ export const mermaidData: MermaidTimeline[] = [
       },
       {
         time: 0,
-        description: '引言：能源的本质',
+        description: '00:00 课程开场与能源重要性',
         content: `graph TD
-    A[能源的本质] --> B[太阳能的变形]
-    B --> C[风能]
-    B --> D[水能]
-    B --> E[煤炭]
-    B --> F[石油]
-    A --> G[例外]
-    G --> H[地热能]
-    G --> I[核能]
-    G --> J[潮汐能]
+    A[新能源材料与装备] --> B[课程导读]
+    B --> C[观察身边]
+    C --> D[灯光]
+    C --> E[车辆]
+    C --> F[服务器]
+    D --> G[共同驱动力：能源]
+    E --> G
+    F --> G
+    A --> H[课程结构]
+    H --> I[能源的前世]
+    H --> J[能源的今生]
+    H --> K[能源的未来]
     style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    style G fill:#FFD43B,stroke:#F59F00,stroke-width:2px`,
       },
       {
-        time: 30,
-        description: '能源的"前世"：薪柴时期',
+        time: 35,
+        description: '00:35 能源定义与物理学法则',
+        content: `graph TD
+    A[什么是能源？] --> B[定义]
+    B --> C[向人类提供能量的自然资源]
+    B --> D[人类活动的物质基础]
+    A --> E[物理学法则]
+    E --> F[能量守恒定律]
+    E --> G[熵增原理]
+    F --> H[能量不会凭空产生或消失]
+    F --> I[只是不断变换形态]
+    G --> J[能量总量不变]
+    G --> K[质量在使用中贬值]
+    A --> L[本质]
+    L --> M[几乎所有能源都是太阳能]
+    L --> N[例外：地热能、核能、潮汐能]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style E fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style L fill:#FFD43B,stroke:#F59F00,stroke-width:2px`,
+      },
+      {
+        time: 108,
+        description: '01:48 能源前世：生物质与自然动能',
         content: `graph TD
     A[能源前世] --> B[钻木取火]
     B --> C[第一次技术革命]
     C --> D[机械能→热能]
-    A --> E[薪柴时期特点]
-    E --> F[能源密度低]
-    E --> G[受限于植物生长]
-    E --> H[生产力缓慢]
+    C --> E[引燃生物质]
+    A --> F[薪柴时期]
+    F --> G[火是文明中心]
+    F --> H[能源密度极低]
+    F --> I[生产力发展缓慢]
+    A --> J[驯化自然动能]
+    J --> K[中国水排]
+    J --> L[西方风车]
+    K --> M[公元1世纪]
+    K --> N[利用河流冶铁]
+    L --> O[捕捉风能]
+    J --> P[致命弱点]
+    P --> Q[不稳定]
+    P --> R[靠天吃饭]
     style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
     style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-    style E fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    style P fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
       },
       {
-        time: 60,
-        description: '水力与风力时代',
+        time: 173,
+        description: '02:53 能源今生：化石能源霸权时代',
         content: `graph TD
-    A[水力与风力] --> B[中国水排]
-    A --> C[西方风车]
-    B --> D[公元一世纪]
-    B --> E[利用河流冶铁]
-    C --> F[捕捉大气动能]
-    A --> G[致命弱点]
-    G --> H[不稳定]
-    G --> I[靠天吃饭]
+    A[18世纪历史转折] --> B[煤炭：黑匣子]
+    B --> C[亿万年前植物]
+    B --> D[地质压力浓缩]
+    B --> E[黑色金子]
+    A --> F[蒸汽机革命]
+    F --> G[工厂不依赖河边]
+    F --> H[火车连接世界]
+    A --> I[重大突破]
+    I --> J[高密度能源]
+    I --> K[稳定可控]
+    I --> L[摆脱地理天气束缚]
+    A --> M[石油登场]
+    M --> N[能量密度更高]
+    M --> O[易于运输]
+    M --> P[驱动汽车飞机]
+    M --> Q[制成塑料化纤]
+    A --> R[天然气]
+    R --> S[桥梁能源]
+    A --> T[代价]
+    T --> U[几百年释放几亿年积累的碳]
     style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style G fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
+    style I fill:#51CF66,stroke:#2F9E44,stroke-width:2px
+    style T fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
       },
       {
-        time: 90,
-        description: '能源的"今生"：煤炭时代',
-        content: `graph TD
-    A[18世纪转折] --> B[煤炭]
-    B --> C[远古植物压缩]
-    B --> D[黑色金子]
-    A --> E[蒸汽机革命]
-    E --> F[工厂不依赖河流]
-    E --> G[火车连接世界]
-    A --> H[突破]
-    H --> I[高密度能源]
-    H --> J[稳定可控]
-    H --> K[摆脱地理束缚]
-    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-    style H fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
-      },
-      {
-        time: 130,
-        description: '石油与天然气登场',
-        content: `graph TD
-    A[化石能源霸权] --> B[石油]
-    A --> C[天然气]
-    B --> D[能量密度更高]
-    B --> E[易于运输]
-    B --> F[驱动汽车飞机]
-    B --> G[变成塑料化纤]
-    C --> H[更清洁]
-    C --> I[桥梁能源]
-    A --> J[代价]
-    J --> K[释放几亿年积累的碳]
-    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style J fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
-      },
-      {
-        time: 170,
-        description: '能源的不可能三角',
+        time: 240,
+        description: '04:00 能源不可能三角与双碳战略',
         content: `graph TD
     A[能源不可能三角] --> B[经济廉价]
     A --> C[清洁环保]
     A --> D[稳定可靠]
-    E[传统能源困境] --> F[煤炭：廉价稳定但肮脏]
+    E[传统技术困境] --> F[煤炭：廉价稳定但肮脏]
     E --> G[油气：方便但枯竭风险]
     E --> H[清洁能源：环保但不稳定]
-    I[紧迫挑战] --> J[温室效应]
+    I[紧迫威胁] --> J[温室效应]
     I --> K[气候变化]
     I --> L[达摩克利斯之剑]
+    M[第四次能源革命] --> N[双碳战略]
+    N --> O[2030碳达峰]
+    N --> P[2060碳中和]
+    M --> Q[时代转变]
+    Q --> R[资源为王→技术为王]
+    Q --> S[挖掘→制造]
     style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style I fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
+    style I fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style M fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
       },
       {
-        time: 220,
-        description: '能源的"未来"：第四次能源革命',
+        time: 319,
+        description: '05:19 未来能源的关键材料与系统',
         content: `graph TD
-    A[第四次能源革命] --> B[双碳战略]
-    B --> C[2030碳达峰]
-    B --> D[2060碳中和]
-    A --> E[时代转变]
-    E --> F[资源为王→技术为王]
-    E --> G[挖掘→制造]
-    A --> H[关键]
-    H --> I[新能源材料]
-    H --> J[新能源装备]
-    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style E fill:#51CF66,stroke:#2F9E44,stroke-width:2px
-    style H fill:#FFD43B,stroke:#F59F00,stroke-width:2px`,
-      },
-      {
-        time: 270,
-        description: '打破不可能三角的关键',
-        content: `graph TD
-    A[材料与装备] --> B[光伏材料]
-    A --> C[储能材料]
-    A --> D[氢能技术]
-    B --> E[捕捉每一缕阳光]
-    B --> F[更高效转换]
-    C --> G[锂离子电池]
-    C --> H[钠离子电池]
-    C --> I[把不稳定变稳定]
-    D --> J[终极清洁燃料]
-    D --> K[储能介质]
-    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-    style C fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-    style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
-      },
-      {
-        time: 320,
-        description: '未来能源系统：能源互联网',
-        content: `graph TD
-    A[能源互联网] --> B[多能互补]
-    B --> C[风能]
-    B --> D[光能]
+    A[打破不可能三角] --> B[关键：材料与装备]
+    B --> C[光伏材料]
+    B --> D[储能材料]
     B --> E[氢能]
-    A --> F[智能电网]
-    F --> G[互联互通]
-    F --> H[智能调度]
-    A --> I[特点]
-    I --> J[稳定可靠]
-    I --> K[清洁环保]
-    I --> L[经济高效]
+    C --> F[捕捉每一缕阳光]
+    C --> G[更高效转换]
+    D --> H[锂离子电池]
+    D --> I[钠离子电池]
+    D --> J[把不稳定变稳定]
+    E --> K[终极清洁燃料]
+    E --> L[储能介质]
+    A --> M[能源互联网]
+    M --> N[风能+光能+氢能]
+    M --> O[智能电网互联互通]
+    M --> P[多能互补]
     style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-    style F fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-    style I fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
+    style B fill:#FFD43B,stroke:#F59F00,stroke-width:2px
+    style M fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
       },
       {
-        time: 340,
-        description: '从钻木取火到人造太阳',
+        time: 350,
+        description: '05:50 课程总结',
         content: `graph LR
-    A[钻木取火] --> B[薪柴时期]
+    A[钻木取火] --> B[薪柴]
     B --> C[水力风力]
-    C --> D[煤炭时代]
+    C --> D[煤炭]
     D --> E[石油天然气]
     E --> F[新能源革命]
-    F --> G[可控核聚变]
-    G --> H[人造太阳]
-    style A fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    F --> G[人造太阳]
+    H[第一章总结] --> I[宏观视角]
+    I --> J[理解变革]
+    H --> K[后续章节]
+    K --> L[深入微观领域]
+    K --> M[材料如何改变世界]
     style F fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style H fill:#FFD43B,stroke:#F59F00,stroke-width:3px`,
-      },
-      {
-        time: 360,
-        description: '总结：材料改变世界',
-        content: `graph TD
-    A[能源变革核心] --> B[宏观视角]
-    A --> C[微观突破]
-    B --> D[从前世到未来]
-    B --> E[人类对能量的追求]
-    C --> F[材料创新]
-    C --> G[装备升级]
-    F --> H[光伏材料]
-    F --> I[储能材料]
-    F --> J[催化材料]
-    G --> K[高效转换]
-    G --> L[智能控制]
-    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-    style C fill:#FFD43B,stroke:#F59F00,stroke-width:2px`,
+    style H fill:#FFD43B,stroke:#F59F00,stroke-width:3px
+    style G fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
       },
     ],
   },
