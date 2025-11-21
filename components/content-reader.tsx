@@ -14,14 +14,15 @@ interface ContentReaderProps {
 
 export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
   return (
-    <div className="max-w-4xl mx-auto px-12 py-16 my-8 rounded-2xl" style={{ backgroundColor: 'var(--color-light)' }}>
+    <div className="max-w-4xl mx-auto px-12 py-16 my-8 rounded-2xl shadow-sm" style={{ backgroundColor: 'var(--color-beige)' }}>
       {chapterTitle && (
         <h1 
-          className="text-5xl font-bold mb-6 pb-4" 
+          className="text-5xl font-bold mb-8 pb-5" 
           style={{ 
             fontFamily: 'var(--font-heading)',
             color: 'var(--color-dark)',
-            borderBottom: '3px solid var(--color-orange)'
+            borderBottom: '3px solid var(--color-orange)',
+            letterSpacing: '-0.02em'
           }}
         >
           {chapterTitle}
@@ -35,11 +36,13 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
           components={{
             h1: ({ children }) => (
               <h1 
-                className="text-5xl font-bold mt-0 mb-4 pb-3"
+                className="text-5xl font-bold mt-0 mb-8 pb-5"
                 style={{ 
                   fontFamily: 'var(--font-heading)',
                   color: 'var(--color-dark)',
-                  borderBottom: '3px solid var(--color-orange)'
+                  borderBottom: '3px solid var(--color-orange)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.2'
                 }}
               >
                 {children}
@@ -47,11 +50,13 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             h2: ({ children }) => (
               <h2 
-                className="text-4xl font-semibold mt-16 mb-6 pb-2"
+                className="text-4xl font-semibold mt-20 mb-8 pb-3"
                 style={{ 
                   fontFamily: 'var(--font-heading)',
                   color: 'var(--color-dark)',
-                  borderBottom: '2px solid var(--color-light-gray)'
+                  borderBottom: '2px solid var(--color-light-gray)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.2'
                 }}
               >
                 {children}
@@ -59,10 +64,12 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             h3: ({ children }) => (
               <h3 
-                className="text-3xl font-semibold mt-12 mb-5"
+                className="text-3xl font-semibold mt-16 mb-6"
                 style={{ 
                   fontFamily: 'var(--font-heading)',
-                  color: 'var(--color-dark)'
+                  color: 'var(--color-dark)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.2'
                 }}
               >
                 {children}
@@ -70,10 +77,12 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             h4: ({ children }) => (
               <h4 
-                className="text-2xl font-semibold mt-10 mb-4"
+                className="text-2xl font-semibold mt-12 mb-5"
                 style={{ 
                   fontFamily: 'var(--font-heading)',
-                  color: 'var(--color-dark)'
+                  color: 'var(--color-dark)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.2'
                 }}
               >
                 {children}
@@ -81,11 +90,13 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             p: ({ children }) => (
               <p 
-                className="text-lg leading-relaxed mb-6"
+                className="text-xl mb-8"
                 style={{ 
-                  fontFamily: 'var(--font-body)',
+                  fontFamily: 'Lora, Georgia, serif',
                   color: 'var(--color-dark)',
-                  lineHeight: '1.8'
+                  lineHeight: '1.8',
+                  fontSize: '20px',
+                  fontWeight: 400
                 }}
               >
                 {children}
@@ -93,10 +104,12 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             ul: ({ children }) => (
               <ul 
-                className="list-disc list-inside space-y-2 mb-6"
+                className="list-disc list-inside space-y-3 mb-8 ml-6"
                 style={{ 
-                  fontFamily: 'var(--font-body)',
-                  color: 'var(--color-dark)'
+                  fontFamily: 'Lora, Georgia, serif',
+                  color: 'var(--color-dark)',
+                  fontSize: '20px',
+                  lineHeight: '1.8'
                 }}
               >
                 {children}
@@ -104,17 +117,19 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             ol: ({ children }) => (
               <ol 
-                className="list-decimal list-inside space-y-2 mb-6"
+                className="list-decimal list-inside space-y-3 mb-8 ml-6"
                 style={{ 
-                  fontFamily: 'var(--font-body)',
-                  color: 'var(--color-dark)'
+                  fontFamily: 'Lora, Georgia, serif',
+                  color: 'var(--color-dark)',
+                  fontSize: '20px',
+                  lineHeight: '1.8'
                 }}
               >
                 {children}
               </ol>
             ),
             li: ({ children }) => (
-              <li className="ml-4 text-lg">{children}</li>
+              <li className="ml-2 text-xl" style={{ lineHeight: '1.8', fontFamily: 'Lora, Georgia, serif' }}>{children}</li>
             ),
             strong: ({ children }) => (
               <strong 
@@ -126,11 +141,13 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             blockquote: ({ children }) => (
               <blockquote 
-                className="pl-6 py-4 my-8 italic"
+                className="pl-8 pr-6 py-6 my-12 italic rounded-r-lg"
                 style={{ 
                   borderLeft: '4px solid var(--color-orange)',
                   backgroundColor: 'var(--color-light-gray)',
-                  fontFamily: 'var(--font-body)'
+                  fontFamily: 'Lora, Georgia, serif',
+                  fontSize: '20px',
+                  lineHeight: '1.8'
                 }}
               >
                 {children}
@@ -171,7 +188,7 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
               </a>
             ),
             table: ({ children }) => (
-              <div className="overflow-x-auto my-12">
+              <div className="overflow-x-auto my-12 rounded-lg shadow-sm border border-gray-200">
                 <table className="w-full border-collapse">
                   {children}
                 </table>
@@ -184,23 +201,29 @@ export function ContentReader({ content, chapterTitle }: ContentReaderProps) {
             ),
             th: ({ children }) => (
               <th 
-                className="px-4 py-3 text-left font-semibold"
-                style={{ fontFamily: 'var(--font-heading)' }}
+                className="px-6 py-4 text-left font-semibold"
+                style={{ 
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '16px',
+                  fontWeight: 600
+                }}
               >
                 {children}
               </th>
             ),
             tbody: ({ children }) => (
-              <tbody>
+              <tbody style={{ backgroundColor: 'white' }}>
                 {children}
               </tbody>
             ),
             td: ({ children }) => (
               <td 
-                className="px-4 py-3"
+                className="px-6 py-4"
                 style={{ 
                   borderBottom: '1px solid var(--color-light-gray)',
-                  fontFamily: 'var(--font-body)'
+                  fontFamily: 'Lora, Georgia, serif',
+                  fontSize: '20px',
+                  lineHeight: '1.8'
                 }}
               >
                 {children}

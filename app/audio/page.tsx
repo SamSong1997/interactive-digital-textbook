@@ -50,6 +50,7 @@ export default function AudioPage() {
             <AudioPlayer
               chapterTitle={selectedChapter.chapterTitle}
               duration={selectedChapter.duration}
+              audioSrc={selectedChapter.audioSrc}
               onTimeUpdate={setCurrentTime}
             />
 

@@ -2,6 +2,7 @@ export interface MermaidTimeline {
   chapterId: string;
   chapterTitle: string;
   duration: number;
+  audioSrc?: string;
   timeline: Array<{
     time: number;
     content: string;
@@ -13,13 +14,14 @@ export const mermaidData: MermaidTimeline[] = [
   {
     chapterId: '1-1',
     chapterTitle: '第1章 能源的前世今生',
-    duration: 150,
+    duration: 372,
+    audioSrc: '/音频资源/第一章音频课程.mp3',
     timeline: [
       {
         time: -1,
         description: '准备开始',
         content: `graph TD
-    A["🎓 能源知识体系"]
+    A["🎓 能源的前世今生"]
     B["点击播放开始学习"]
     A --> B
     style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
@@ -27,135 +29,189 @@ export const mermaidData: MermaidTimeline[] = [
       },
       {
         time: 0,
-        description: '第一步：能源的核心概念',
+        description: '引言：能源的本质',
         content: `graph TD
-A[能源]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff`,
+    A[能源的本质] --> B[太阳能的变形]
+    B --> C[风能]
+    B --> D[水能]
+    B --> E[煤炭]
+    B --> F[石油]
+    A --> G[例外]
+    G --> H[地热能]
+    G --> I[核能]
+    G --> J[潮汐能]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
       },
       {
-        time: 20,
-        description: '第二步：能源的定义',
+        time: 30,
+        description: '能源的"前世"：薪柴时期',
         content: `graph TD
-A[能源] --> B[定义]
-B --> C[向人类提供能量的资源]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
-      },
-      {
-        time: 40,
-        description: '第三步：能源的三大来源',
-        content: `graph TD
-A[能源] --> B[定义]
-B --> C[向人类提供能量的资源]
-A --> D[主要来源]
-D --> E[太阳辐射]
-D --> F[地球内部]
-D --> G[天体引力]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    A[能源前世] --> B[钻木取火]
+    B --> C[第一次技术革命]
+    C --> D[机械能→热能]
+    A --> E[薪柴时期特点]
+    E --> F[能源密度低]
+    E --> G[受限于植物生长]
+    E --> H[生产力缓慢]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style E fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
       },
       {
         time: 60,
-        description: '第四步：能源的分类体系',
+        description: '水力与风力时代',
         content: `graph TD
-A[能源] --> B[定义]
-B --> C[向人类提供能量的资源]
-A --> D[主要来源]
-D --> E[太阳辐射]
-D --> F[地球内部]
-D --> G[天体引力]
-A --> H[分类]
-H --> I[一次能源]
-H --> J[二次能源]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style H fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    A[水力与风力] --> B[中国水排]
+    A --> C[西方风车]
+    B --> D[公元一世纪]
+    B --> E[利用河流冶铁]
+    C --> F[捕捉大气动能]
+    A --> G[致命弱点]
+    G --> H[不稳定]
+    G --> I[靠天吃饭]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style G fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
       },
       {
-        time: 80,
-        description: '第五步：一次能源的具体类型',
+        time: 90,
+        description: '能源的"今生"：煤炭时代',
         content: `graph TD
-A[能源] --> B[定义]
-B --> C[向人类提供能量的资源]
-A --> D[主要来源]
-D --> E[太阳辐射]
-D --> F[地球内部]
-D --> G[天体引力]
-A --> H[分类]
-H --> I[一次能源]
-H --> J[二次能源]
-I --> K[煤炭]
-I --> L[石油]
-I --> M[天然气]
-I --> N[太阳能]
-I --> O[风能]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style H fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style I fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    A[18世纪转折] --> B[煤炭]
+    B --> C[远古植物压缩]
+    B --> D[黑色金子]
+    A --> E[蒸汽机革命]
+    E --> F[工厂不依赖河流]
+    E --> G[火车连接世界]
+    A --> H[突破]
+    H --> I[高密度能源]
+    H --> J[稳定可控]
+    H --> K[摆脱地理束缚]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style H fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
       },
       {
-        time: 100,
-        description: '第六步：二次能源的具体类型',
+        time: 130,
+        description: '石油与天然气登场',
         content: `graph TD
-A[能源] --> B[定义]
-B --> C[向人类提供能量的资源]
-A --> D[主要来源]
-D --> E[太阳辐射]
-D --> F[地球内部]
-D --> G[天体引力]
-A --> H[分类]
-H --> I[一次能源]
-H --> J[二次能源]
-I --> K[煤炭]
-I --> L[石油]
-I --> M[天然气]
-I --> N[太阳能]
-I --> O[风能]
-J --> P[电能]
-J --> Q[氢能]
-J --> R[汽油]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style H fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style I fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style J fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    A[化石能源霸权] --> B[石油]
+    A --> C[天然气]
+    B --> D[能量密度更高]
+    B --> E[易于运输]
+    B --> F[驱动汽车飞机]
+    B --> G[变成塑料化纤]
+    C --> H[更清洁]
+    C --> I[桥梁能源]
+    A --> J[代价]
+    J --> K[释放几亿年积累的碳]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style J fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
       },
       {
-        time: 120,
-        description: '完整图：能源的完整知识体系',
+        time: 170,
+        description: '能源的不可能三角',
         content: `graph TD
-A[能源] --> B[定义]
-B --> C[向人类提供能量的资源]
-A --> D[主要来源]
-D --> E[太阳辐射]
-D --> F[地球内部]
-D --> G[天体引力]
-A --> H[分类]
-H --> I[一次能源]
-H --> J[二次能源]
-I --> K[煤炭]
-I --> L[石油]
-I --> M[天然气]
-I --> N[太阳能]
-I --> O[风能]
-J --> P[电能]
-J --> Q[氢能]
-J --> R[汽油]
-A --> S[特性]
-S --> T[可再生]
-S --> U[不可再生]
-style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
-style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style H fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style I fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style J fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
-style S fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+    A[能源不可能三角] --> B[经济廉价]
+    A --> C[清洁环保]
+    A --> D[稳定可靠]
+    E[传统能源困境] --> F[煤炭：廉价稳定但肮脏]
+    E --> G[油气：方便但枯竭风险]
+    E --> H[清洁能源：环保但不稳定]
+    I[紧迫挑战] --> J[温室效应]
+    I --> K[气候变化]
+    I --> L[达摩克利斯之剑]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style I fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px`,
+      },
+      {
+        time: 220,
+        description: '能源的"未来"：第四次能源革命',
+        content: `graph TD
+    A[第四次能源革命] --> B[双碳战略]
+    B --> C[2030碳达峰]
+    B --> D[2060碳中和]
+    A --> E[时代转变]
+    E --> F[资源为王→技术为王]
+    E --> G[挖掘→制造]
+    A --> H[关键]
+    H --> I[新能源材料]
+    H --> J[新能源装备]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style E fill:#51CF66,stroke:#2F9E44,stroke-width:2px
+    style H fill:#FFD43B,stroke:#F59F00,stroke-width:2px`,
+      },
+      {
+        time: 270,
+        description: '打破不可能三角的关键',
+        content: `graph TD
+    A[材料与装备] --> B[光伏材料]
+    A --> C[储能材料]
+    A --> D[氢能技术]
+    B --> E[捕捉每一缕阳光]
+    B --> F[更高效转换]
+    C --> G[锂离子电池]
+    C --> H[钠离子电池]
+    C --> I[把不稳定变稳定]
+    D --> J[终极清洁燃料]
+    D --> K[储能介质]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style C fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style D fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px`,
+      },
+      {
+        time: 320,
+        description: '未来能源系统：能源互联网',
+        content: `graph TD
+    A[能源互联网] --> B[多能互补]
+    B --> C[风能]
+    B --> D[光能]
+    B --> E[氢能]
+    A --> F[智能电网]
+    F --> G[互联互通]
+    F --> H[智能调度]
+    A --> I[特点]
+    I --> J[稳定可靠]
+    I --> K[清洁环保]
+    I --> L[经济高效]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style B fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style F fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style I fill:#51CF66,stroke:#2F9E44,stroke-width:2px`,
+      },
+      {
+        time: 340,
+        description: '从钻木取火到人造太阳',
+        content: `graph LR
+    A[钻木取火] --> B[薪柴时期]
+    B --> C[水力风力]
+    C --> D[煤炭时代]
+    D --> E[石油天然气]
+    E --> F[新能源革命]
+    F --> G[可控核聚变]
+    G --> H[人造太阳]
+    style A fill:#E6F0FF,stroke:#0F60FF,stroke-width:2px
+    style F fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style H fill:#FFD43B,stroke:#F59F00,stroke-width:3px`,
+      },
+      {
+        time: 360,
+        description: '总结：材料改变世界',
+        content: `graph TD
+    A[能源变革核心] --> B[宏观视角]
+    A --> C[微观突破]
+    B --> D[从前世到未来]
+    B --> E[人类对能量的追求]
+    C --> F[材料创新]
+    C --> G[装备升级]
+    F --> H[光伏材料]
+    F --> I[储能材料]
+    F --> J[催化材料]
+    G --> K[高效转换]
+    G --> L[智能控制]
+    style A fill:#0F60FF,stroke:#173F73,stroke-width:3px,color:#fff
+    style C fill:#FFD43B,stroke:#F59F00,stroke-width:2px`,
       },
     ],
   },

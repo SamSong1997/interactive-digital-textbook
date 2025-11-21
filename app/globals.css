@@ -17,6 +17,7 @@
   --color-light: #faf9f5;
   --color-mid-gray: #b0aea5;
   --color-light-gray: #e8e6dc;
+  --color-beige: #faf8f3;     /* Reading background */
   
   /* Accent Colors */
   --color-orange: #d97757;    /* Primary accent */
@@ -107,6 +108,8 @@
     line-height: 1.8;
     color: var(--color-dark);
     background-color: var(--color-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   html {
     scroll-behavior: smooth;
@@ -120,6 +123,11 @@
     color: var(--color-dark);
     letter-spacing: -0.02em;
     line-height: 1.2;
+  }
+  
+  /* Improve text rendering */
+  p, li, td, blockquote {
+    text-rendering: optimizeLegibility;
   }
 }
 
@@ -135,11 +143,27 @@
 
 /* Tables */
 table tbody tr {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease;
 }
 
 table tbody tr:hover {
-  background-color: var(--color-light-gray);
+  background-color: rgba(232, 230, 220, 0.5);
+}
+
+/* Links */
+a {
+  transition: color 0.2s ease;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-orange);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--color-orange);
+  color: white;
 }
 
 /* Charts */

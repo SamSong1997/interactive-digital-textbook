@@ -1,41 +1,100 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Volume2 } from 'lucide-react';
 
 interface AudioPlayerProps {
   chapterTitle: string;
   duration: number;
+  audioSrc?: string;
   onTimeUpdate: (currentTime: number) => void;
 }
 
-export function AudioPlayer({ chapterTitle, duration, onTimeUpdate }: AudioPlayerProps) {
+export function AudioPlayer({ chapterTitle, duration, audioSrc, onTimeUpdate }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [volume, setVolume] = useState(0.8);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // 初始化音频元素
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setCurrentTime((prev) => {
-          const next = prev + (1 * playbackRate);
-          if (next >= duration) {
-            setIsPlaying(false);
-            return duration;
-          }
-          onTimeUpdate(next);
-          return next;
-        });
-      }, 1000);
+    if (audioSrc && !audioRef.current) {
+      audioRef.current = new Audio(audioSrc);
+      audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
+      audioRef.current.addEventListener('ended', handleEnded);
+      audioRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
     }
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
+        audioRef.current.removeEventListener('ended', handleEnded);
+        audioRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      }
     };
-  }, [isPlaying, playbackRate, duration, onTimeUpdate]);
+  }, [audioSrc]);
+
+  // 处理音频时间更新
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const time = audioRef.current.currentTime;
+      setCurrentTime(time);
+      onTimeUpdate(time);
+    }
+  };
+
+  // 处理音频播放结束
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+    onTimeUpdate(0);
+  };
+
+  // 处理音频元数据加载
+  const handleLoadedMetadata = () => {
+    // 可以在这里获取真实的音频时长
+  };
+
+  // 更新播放速率
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = playbackRate;
+    }
+  }, [playbackRate]);
+
+  // 更新音量
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
+  // 模拟播放（当没有真实音频时）
+  useEffect(() => {
+    if (!audioSrc) {
+      let interval: NodeJS.Timeout | null = null;
+
+      if (isPlaying) {
+        interval = setInterval(() => {
+          setCurrentTime((prev) => {
+            const next = prev + (1 * playbackRate);
+            if (next >= duration) {
+              setIsPlaying(false);
+              return duration;
+            }
+            onTimeUpdate(next);
+            return next;
+          });
+        }, 1000);
+      }
+
+      return () => {
+        if (interval) clearInterval(interval);
+      };
+    }
+  }, [isPlaying, playbackRate, duration, onTimeUpdate, audioSrc]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -47,6 +106,20 @@ export function AudioPlayer({ chapterTitle, duration, onTimeUpdate }: AudioPlaye
     const time = parseFloat(e.target.value);
     setCurrentTime(time);
     onTimeUpdate(time);
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+    }
+  };
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+    }
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -58,7 +131,7 @@ export function AudioPlayer({ chapterTitle, duration, onTimeUpdate }: AudioPlaye
 
       <div className="flex items-center gap-4">
         <button
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={togglePlay}
           className="w-12 h-12 rounded-full bg-brand-primary hover:bg-brand-deep text-white flex items-center justify-center transition-colors"
         >
           {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
